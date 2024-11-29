@@ -1,0 +1,25 @@
+# Example pyproject to build a quick custom module
+[build-system]
+requires = ["setuptools>=64.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "custom"
+version = "v0.0.1"
+readme = "PACKAGE-README.md"
+authors = [{ name = "ACME", email = "acme@example.com" }]
+maintainers = [{ name = "ACME", email = "acme@example.com" }]
+description = "A custom lib of ANTA tests"
+
+license = { file = "LICENSE" }
+dependencies = [
+  "anta>=1.1.0"
+]
+requires-python = ">=3.9"
+
+################################
+# Tools
+################################
+[tool.setuptools.packages.find]
+include = ["custom*"]
+namespaces = false

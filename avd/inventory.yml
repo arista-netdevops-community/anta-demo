@@ -1,0 +1,42 @@
+---
+all:
+  children:
+    cv_servers:
+      hosts:
+        cv_atd1:
+          ansible_host: 192.168.0.5
+          ansible_user: arista
+          ansible_password: TODO
+    LAB:
+      vars:
+        ansible_user: arista
+        ansible_password: TODO
+      children:
+        FABRIC:
+          children:
+            SPINES:
+              hosts:
+                spine1:
+                  ansible_host: 192.168.0.10
+                spine2:
+                  ansible_host: 192.168.0.11
+            LEAFS:
+              children:
+                pod1:
+                  hosts:
+                    leaf1:
+                      ansible_host: 192.168.0.12
+                    leaf2:
+                      ansible_host: 192.168.0.13
+                pod2:
+                  hosts:
+                    leaf3:
+                      ansible_host: 192.168.0.14
+                    leaf4:
+                      ansible_host: 192.168.0.15
+    NETWORK_SERVICES:
+      children:
+        LEAFS:
+    CONNECTED_ENDPOINTS:
+      children:
+        LEAFS:

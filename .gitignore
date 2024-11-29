@@ -1,0 +1,5 @@
+avd/config_backup/**
+.python-version
+# custom python package
+custom.egg-info/*
+__pycache__
