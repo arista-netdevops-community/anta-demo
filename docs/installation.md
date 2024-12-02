@@ -35,7 +35,7 @@ Containerlab is engine to run test topology and must be installed prior to launc
 bash -c "$(curl -sL https://get.containerlab.dev)"
 ```
 
-### Macos
+### OSX
 
 ```bash
 CLAB_WORKDIR=${PWD}

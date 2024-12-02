@@ -1,2 +1,2 @@
-anta>=1.1.0
+anta[cli]>=1.1.0
 eos-downloader>=0.10.3

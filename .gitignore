@@ -3,3 +3,8 @@ avd/config_backup/**
 # custom python package
 custom.egg-info/*
 __pycache__
+# Python virtual environment
+venv
+# containerlab run folder
+containerlab-topology/clab-anta-demo/*
+*.bak
