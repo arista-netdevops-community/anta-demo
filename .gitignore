@@ -8,3 +8,5 @@ venv
 # containerlab run folder
 containerlab-topology/clab-anta-demo/*
 *.bak
+# ANTA snapshot
+anta_snapshot_*

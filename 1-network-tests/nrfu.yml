@@ -10,10 +10,12 @@ anta.tests.software:
         - '4.28.3M-28837868.4283M (engineering build)'
 
 anta.tests.routing.bgp:
-  - VerifyBGPIPv4UnicastCount:
-      number: 1
-      template_params:
-        - vrf: default
+  - VerifyBGPPeerCount:
+      address_families:
+        - afi: evpn
+          num_peers: 2
+      filters:
+        tags: [leaf, spine]
 
 anta.tests.interfaces:
   - VerifyInterfaceUtilization:
@@ -26,5 +28,11 @@ anta.tests.system:
 
 anta.tests.mlag:
   - VerifyMlagStatus:
+      filters:
+        tags: [leaf]
   - VerifyMlagInterfaces:
+      filters:
+        tags: [leaf]
   - VerifyMlagConfigSanity:
+      filters:
+        tags: [leaf]

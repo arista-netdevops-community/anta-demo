@@ -79,7 +79,7 @@ cd ..
 Run testing only on leaf devices
 
 ```bash
-anta nrfu --catalog 1-network-tests/nrfu.yml table --tags leaf
+anta nrfu --catalog 1-network-tests/nrfu.yml --tags leaf table
 ```
 
 ## Run a debug command on a specific device
