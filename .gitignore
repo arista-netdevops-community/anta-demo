@@ -1,7 +1,8 @@
 avd/config_backup/**
 .python-version
 # custom python package
-custom.egg-info/*
+**/custom.egg-info/*
+**/build/*
 __pycache__
 # Python virtual environment
 venv

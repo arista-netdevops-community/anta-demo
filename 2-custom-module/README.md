@@ -115,15 +115,12 @@ class VerifyUptime(AntaTest):
 
 #### Metadata information
 
-The `AntaTest` class from which all ANTA tests inherit defines some Class Variables. Two of them are mandatory and two of them are optional to define in the child class:
-
-##### Optional AntaTest Class Variables
-
-- `name` [Optional]: Name of the test - use the Class name if not provided.
-- `description` [Optional]: A human readable description of your test - use the first line of the docstring if not provided.
+The `AntaTest` class from which all ANTA tests inherit defines some mandatory Class Variables.
 
 ##### Mandatory AntaTest Class Variables
 
+- `name` [Optional starting ANTA v1.2.0]: Name of the test - use the Class name if not provided.
+- `description` [Optional starting ANTA 1.2.0]: A human readable description of your test - use the first line of the docstring if not provided.
 - `categories`: a list of categories to sort test. The existing categories are listed on ANTA website.
 - `commands`: a list of `AntaCommand` and/or `AntaTemplate` to run for this test to be able to execute the `test` function.
 
@@ -155,11 +152,12 @@ class VerifyUptime(AntaTest):
     ```
     """
 
+    name = "VerifyUptime"
     # name = "CustomVerifyUptime"  # TODO: uncomment this if you want to change the test name
                                    # note that it requires a change in the catalog.
     description = "My Custom Test."
     categories = ["custom_system"]
-    commands = [AntaCommand(command=""show uptime", revision=1)]
+    commands = [AntaCommand(command="show uptime", revision=1)]
 
     @AntaTest.anta_test
     def test(self) -> None:
@@ -172,7 +170,7 @@ AntaTest.Input is a [pydantic model](https://docs.pydantic.dev/latest/concepts/m
 
 To develop an ANTA test with inputs, it is sufficient to define the pydantic model for them, this will define the YAML structure of the test inputs in the catalog. This example shows a pretty simeple example but you can browse ANTA source code on Github to find more intricate examples (e.g. connectivity tests).
 
-For `VerifyUptime`, the model defines one input interge `minimum` that is used to compare to the return of the show command.
+For `VerifyUptime`, the model defines one input interge `minimum` that is used to compare to the return of the show command. Notice the import of `PositiveInteger` added towards the top of the file.
 
 
 ````python
@@ -182,6 +180,7 @@ from __future__ import annotations
 import logging
 from typing import Any
 
+from anta.custom_types import PositiveInteger
 from anta.models import AntaTest, AntaCommand
 
 class VerifyUptime(AntaTest):
@@ -203,11 +202,12 @@ class VerifyUptime(AntaTest):
     ```
     """
 
+    name = "VerifyUptime"
     # name = "CustomVerifyUptime"  # TODO: uncomment this if you want to change the test name
                                    # note that it requires a change in the catalog.
     description = "My Custom Test."
     categories = ["custom_system"]
-    commands = [AntaCommand(command=""show uptime", revision=1)]
+    commands = [AntaCommand(command="show uptime", revision=1)]
 
     class Input(AntaTest.Input):
         """Input model for the VerifyUptime test."""
@@ -234,6 +234,7 @@ from __future__ import annotations
 import logging
 from typing import Any
 
+from anta.custom_types import PositiveInteger
 from anta.models import AntaTest, AntaCommand
 
 class VerifyUptime(AntaTest):
@@ -255,11 +256,12 @@ class VerifyUptime(AntaTest):
     ```
     """
 
+    name = "VerifyUptime"
     # name = "CustomVerifyUptime"  # TODO: uncomment this if you want to change the test name
                                    # note that it requires a change in the catalog.
     description = "My Custom Test."
     categories = ["custom_system"]
-    commands = [AntaCommand(command=""show uptime", revision=1)]
+    commands = [AntaCommand(command="show uptime", revision=1)]
 
     class Input(AntaTest.Input):
         """Input model for the VerifyUptime test."""
@@ -288,6 +290,11 @@ That's it the test is created!
 ```bash
 # from the 2-custom-test directory
 pip install .
+```
+
+Verify the installation:
+
+```
 pip freeze | grep custom
 python -c "from custom.example import VerifyUptime"
 ```
@@ -314,24 +321,50 @@ Build auto-complete for anta
 
 $ anta nrfu -c 2-custom-module/nrfu_custom.yml table
 ╭────────────────────── Settings ──────────────────────╮
-│ Running ANTA tests:                                  │
-│ - ANTA Inventory contains 5 devices (AsyncEOSDevice) │
+│ - ANTA Inventory contains 6 devices (AsyncEOSDevice) │
 │ - Tests catalog contains 1 tests                     │
 ╰──────────────────────────────────────────────────────╯
 
-[11:31:19] INFO     Running ANTA
+[23:20:04] INFO     Preparing ANTA NRFU Run ...                                                                            tools.py:294
+           INFO     Connecting to devices ...                                                                              tools.py:294
+           INFO     Connecting to devices completed in: 0:00:00.194.                                                       tools.py:302
+           INFO     Preparing the tests ...                                                                                tools.py:294
+           INFO     Preparing the tests completed in: 0:00:00.005.                                                         tools.py:302
+           INFO     --- ANTA NRFU Run Information ---                                                                     runner.py:270
+                    Number of devices: 6 (6 established)
+                    Total number of selected tests: 6
+                    Maximum number of open file descriptors for the current ANTA process: 16384
+                    ---------------------------------
+           INFO     Preparing ANTA NRFU Run completed in: 0:00:00.222.                                                     tools.py:302
+           INFO     Running ANTA tests ...                                                                                 tools.py:294
+[23:20:05] INFO     Running ANTA tests completed in: 0:00:00.170.                                                          tools.py:302
+           INFO     Cache statistics for 'spine01': 0 hits / 1 command(s) (0.00%)                                          runner.py:75
+           INFO     Cache statistics for 'spine02': 0 hits / 1 command(s) (0.00%)                                          runner.py:75
+           INFO     Cache statistics for 'leaf01': 0 hits / 1 command(s) (0.00%)                                           runner.py:75
+           INFO     Cache statistics for 'leaf02': 0 hits / 1 command(s) (0.00%)                                           runner.py:75
+           INFO     Cache statistics for 'leaf03': 0 hits / 1 command(s) (0.00%)                                           runner.py:75
+           INFO     Cache statistics for 'leaf04': 0 hits / 1 command(s) (0.00%)                                           runner.py:75
+  • Running NRFU Tests...100% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6/6 • 0:00:00 • 0:00:00
 
                                    All tests results
 ┏━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
 ┃ Device  ┃ Test Name    ┃ Test Status ┃ Message(s) ┃ Test description ┃ Test category ┃
 ┡━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
-│ spine01 │ VerifyUptime │ success     │            │ My Custom Test.  │ custom_system │
-│ spine02 │ VerifyUptime │ success     │            │ My Custom Test.  │ custom_system │
-│ leaf01  │ VerifyUptime │ success     │            │ My Custom Test.  │ custom_system │
-│ leaf02  │ VerifyUptime │ success     │            │ My Custom Test.  │ custom_system │
-│ leaf03  │ VerifyUptime │ success     │            │ My Custom Test.  │ custom_system │
+│ spine01 │ VerifyUptime │ success     │            │ My Custom Test.  │ Custom_System │
+├─────────┼──────────────┼─────────────┼────────────┼──────────────────┼───────────────┤
+│ spine02 │ VerifyUptime │ success     │            │ My Custom Test.  │ Custom_System │
+├─────────┼──────────────┼─────────────┼────────────┼──────────────────┼───────────────┤
+│ leaf01  │ VerifyUptime │ success     │            │ My Custom Test.  │ Custom_System │
+├─────────┼──────────────┼─────────────┼────────────┼──────────────────┼───────────────┤
+│ leaf02  │ VerifyUptime │ success     │            │ My Custom Test.  │ Custom_System │
+├─────────┼──────────────┼─────────────┼────────────┼──────────────────┼───────────────┤
+│ leaf03  │ VerifyUptime │ success     │            │ My Custom Test.  │ Custom_System │
+├─────────┼──────────────┼─────────────┼────────────┼──────────────────┼───────────────┤
+│ leaf04  │ VerifyUptime │ success     │            │ My Custom Test.  │ Custom_System │
 └─────────┴──────────────┴─────────────┴────────────┴──────────────────┴───────────────┘
 ```
+
+You can play with the Input.minimum uptime.
 
 ## What next ?
 
