@@ -4,7 +4,7 @@
   ~ that can be found in the LICENSE file.
   -->
 
-> **WIP**
+> ⚠️ **WIP** ⚠️
 
 # Arista Network Testing Automation (ANTA) demo
 

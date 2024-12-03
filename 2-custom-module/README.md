@@ -311,8 +311,6 @@ custom.example:
 
 ### Run your NRFU tests with the CLI:
 
-**TODO: UPDATE output**
-
 ```bash
 # From the root of the repository
 $ source anta.env

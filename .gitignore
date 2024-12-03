@@ -11,3 +11,6 @@ containerlab-topology/clab-anta-demo/*
 *.bak
 # ANTA snapshot
 anta_snapshot_*
+# eos validate state
+avd/intended/test_catalogs/*
+avd/reports/*
