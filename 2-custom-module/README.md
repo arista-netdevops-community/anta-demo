@@ -69,7 +69,6 @@ The following elements have to be imported to write a test:
 from anta.models import AntaTest, AntaCommand
 ```
 
-
 ### ANTA Test creation
 
 A test is a python class where a test function is defined and will be run by the framework. ANTA provides an abstract class AntaTest. This class does the heavy lifting
@@ -168,10 +167,9 @@ class VerifyUptime(AntaTest):
 
 AntaTest.Input is a [pydantic model](https://docs.pydantic.dev/latest/concepts/models/) that allow test developers to define their test inputs. pydantic provides out of the box error handling for test input validation based on the type hints defined by the test developer.
 
-To develop an ANTA test with inputs, it is sufficient to define the pydantic model for them, this will define the YAML structure of the test inputs in the catalog. This example shows a pretty simeple example but you can browse ANTA source code on Github to find more intricate examples (e.g. connectivity tests).
+To develop an ANTA test with inputs, it is sufficient to define the pydantic model for them, this will define the YAML structure of the test inputs in the catalog. This example shows a pretty simple example but you can browse ANTA source code on Github to find more intricate examples (e.g. connectivity tests).
 
 For `VerifyUptime`, the model defines one input interge `minimum` that is used to compare to the return of the show command. Notice the import of `PositiveInteger` added towards the top of the file.
-
 
 ````python
 # Added for Python3.9 support
@@ -225,7 +223,6 @@ class VerifyUptime(AntaTest):
 The next step is to define the `test` function, it is the function that will parse the output of the commands ran and the inputs and decide if the test is a success, a failure or any other state.
 
 The complexity of the `test` function may differ depending on how much parsing and checking you need to do to validate the output of the show command(s).
-
 
 ````python
 # Added for Python3.9 support
@@ -309,7 +306,7 @@ custom.example:
       minimum: 1
 ```
 
-### Run your NRFU tests with the CLI:
+### Run your NRFU tests with the CLI
 
 ```bash
 # From the root of the repository
