@@ -2,9 +2,10 @@
 ansible_httpapi_host: '{{ ansible_host }}'
 ansible_connection: httpapi
 ansible_httpapi_use_ssl: true
+# Certs _should_ be validate when outside of lab environment
 ansible_httpapi_validate_certs: false
 ansible_network_os: eos
 ansible_httpapi_port: 443
-
+# May not be needed
 ansible_become: true
 ansible_become_method: enable
