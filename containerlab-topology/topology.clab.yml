@@ -8,112 +8,47 @@ mgmt:
 topology:
   kinds:
     ceos:
-      image: arista/ceos:${EOS_VERSION:=4.32.0F}
+      image: arista/ceos:${EOS_VERSION:=4.33.0F}
   nodes:
     spine1:
       kind: ceos
       mgmt-ipv4: 192.168.0.10
       startup-config: ../avd/intended/configs/spine1.cfg
-      env:
-        TMODE: lacp
       group: spine
-      labels:
-        graph-level: 1
-        graph-icon: switch
     spine2:
       kind: ceos
       mgmt-ipv4: 192.168.0.11
       startup-config: ../avd/intended/configs/spine2.cfg
-      env:
-        TMODE: lacp
       group: spine
-      labels:
-        graph-level: 1
-        graph-icon: switch
     leaf1:
       kind: ceos
       mgmt-ipv4: 192.168.0.12
       startup-config: ../avd/intended/configs/leaf1.cfg
-      env:
-        TMODE: lacp
       group: leaf
-      labels:
-        graph-level: 2
-        graph-icon: switch
     leaf2:
       kind: ceos
       mgmt-ipv4: 192.168.0.13
       startup-config: ../avd/intended/configs/leaf2.cfg
-      env:
-        TMODE: lacp
       group: leaf
-      labels:
-        graph-level: 2
-        graph-icon: switch
     leaf3:
       kind: ceos
       mgmt-ipv4: 192.168.0.14
       startup-config: ../avd/intended/configs/leaf3.cfg
-      env:
-        TMODE: lacp
       group: leaf
-      labels:
-        graph-level: 2
-        graph-icon: switch
     leaf4:
       kind: ceos
       mgmt-ipv4: 192.168.0.15
       startup-config: ../avd/intended/configs/leaf4.cfg
-      env:
-        TMODE: lacp
       group: leaf
-      labels:
-        graph-level: 2
-        graph-icon: switch
     host1:
       kind: ceos
       mgmt-ipv4: 192.168.0.16
       startup-config: configs/host1.cfg
-      env:
-        TMODE: lacp
       group: server
-      labels:
-        graph-level: 3
-        graph-icon: server
     host2:
       kind: ceos
       mgmt-ipv4: 192.168.0.17
       startup-config: configs/host2.cfg
-      env:
-        TMODE: lacp
-      group: server
-      labels:
-        graph-level: 3
-        graph-icon: server
-
-    # --------------------------------------- #
-    # Graphite Node                           #
-    # Provides Topology Graphing and the      #
-    # ability to connect to nodes in the      #
-    # topology via a web/ssh session          #
-    # --------------------------------------- #
-    graphite:
-      kind: linux
-      image: netreplica/graphite
-      env:
-        GRAPHITE_DEFAULT_TYPE: clab
-        GRAPHITE_DEFAULT_TOPO: atd-anta
-        HOST_CONNECTION: ${SSH_CONNECTION}
-      binds:
-        # - .:/htdocs/clab    # New path required for latest version
-        - __clabDir__/topology-data.json:/htdocs/default/default.json:ro
-        - __clabDir__/ansible-inventory.yml:/htdocs/lab/default/ansible-inventory.yml:ro
-      ports:
-        - 80:80
-      exec:
-        - sh -c 'graphite_motd.sh 80'
-      labels:
-        graph-hide: yes
       group: server
 
   links:
