@@ -210,18 +210,13 @@ It is possible to skip specific tests in a given category as described in the `e
 
 It is possible to leverage custom ANTA catalogs in AVD `eos_validate_state` for example to add built-in ANTA tests which could be missing or even to run your own.
 
-This section will take you through using the test built in lab 2 (a duplicate of `VerifyUptime`) in a custom catalog in AVD.
-
-> 📃 **Note**
->
-> If you have not run lab2. you can still run this lab, skip step 1.
+This section will take you through using the test built in lab 2 in a custom catalog in AVD.
 
 1. Make sure the `custom` python package is installed and available.
 
     ```bash
-    user@hostname$ pip freeze | grep custom
-    # Example output if installed as editable install:
-    # custom @ file:///<SOME PATH>>/anta-demo/2-custom-test
+    # from the root of the repo
+    user@hostname$ python -c "import custom"
     ```
 
 2. The custom catalogs has been built in `3-anta-in-avd/custom_anta_catalogs`.
@@ -244,12 +239,14 @@ This section will take you through using the test built in lab 2 (a duplicate of
     # 3-anta-in-avd/custom_anta_catalogs/LAB.yml
     # This catalog is applied to all devices in the LAB group in the AVD inventory
 
-    # Use the next test if you have completed lab 2, otherwise comment it.
-    custom.example:
-      - VerifyUptime:
-          minimum: 42
+    # Use the next test if you have completed lab 2
+    custom.vlan:
+      - VerifyVlanStatus:
+          vlans:
+            - 110
+            - 160
 
-    # If you have not completed lab 2 you can use the built-in ANTA test instead.
+    # If you have not completed lab 2 you can use a built-in ANTA test instead
     # anta.tests.system:
     #  - VerifyUptime:
     #      minimum: 42
@@ -258,8 +255,8 @@ This section will take you through using the test built in lab 2 (a duplicate of
     The `leaf1.yml` catalog just add a test to validate the default SSL profile. This is only for the purpose of showing how to add a test per device.
 
     ```yaml
-        ---
-    # avd/custom_anta_catalogs/leaf1.yml
+    ---
+    # 3-anta-in-avd/custom_anta_catalogs/LAB.yml
     # This catalog is applied to only leaf1
 
     # Using a built-in ANTA test to verify validity of default Arista profile
@@ -282,9 +279,9 @@ This section will take you through using the test built in lab 2 (a duplicate of
 
 5. Check that in the `intended/test_catalogs` new tests have appeared at the end of the catalogs (notice how leaf1 has the SSL test)
 
-6. Check the makrdown report and see the new category appear (if using the custom test from lab2 you should be seeing a `Custom_System` category)
+6. Check the makrdown report and see the new category appear (if using the custom test from lab2 you should be seeing a `VLAN` category)
 
-You can now leverage this lab to create and add your own tests in your own custom catalogs to your `eos_validate_state` role.
+You can now leverage this lab to create and add your own tests in your own custom catalogs to your AVD project!
 
 ## Reference
 

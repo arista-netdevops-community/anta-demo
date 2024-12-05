@@ -107,3 +107,7 @@ anta nrfu --catalog 1-hello-world/catalog.yml --tags leaf
     ```bash
     anta exec snapshot -c 1-hello-world/snapshot.yml
     ```
+
+## Next steps
+
+ANTA CLI [documentation](https://anta.arista.com/stable/cli/overview/)

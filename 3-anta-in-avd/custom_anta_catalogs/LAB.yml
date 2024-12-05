@@ -3,11 +3,13 @@
 # This catalog is applied to all devices in the LAB group in the AVD inventory
 
 # Use the next test if you have completed lab 2
-custom.example:
-  - VerifyUptime:
-      minimum: 42
+custom.vlan:
+  - VerifyVlanStatus:
+      vlans:
+        - 110
+        - 160
 
-# If you have not completed lab 2 you can use the built-in ANTA test instead
+# If you have not completed lab 2 you can use a built-in ANTA test instead
 # anta.tests.system:
 #  - VerifyUptime:
 #      minimum: 42
