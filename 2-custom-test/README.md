@@ -6,25 +6,26 @@
 
 # Building an ANTA test
 
-**Objective: Writing and executing a custom test**
+**Objective:** Writing and executing a custom ANTA test
 
-> **Note**
+> 📃 **Note**
+>
 > Refer to the [ANTA Documentation](https://anta.arista.com/stable/advanced_usages/custom-tests/) on developing an ANTA test for more details.
 
 A custom Python package is provided in this lab under the `custom` folder.
 
 In this lab, we are going to create a test (`VerifyVlanStatus`) in a separate Python package.
-The Python package is accessible in the Python environement using the `PYTHONPATH` definition in [anta.env](../anta.env).
+The Python package is accessible in the Python envirnement using the `PYTHONPATH` definition in [anta.env](../anta.env).
 
 The `VerifyVlanStatus` test verifies if specified VLANs are active using the output of the `show vlan` command.
 
-### The `AntaTest` subclass definition
+## The `AntaTest` subclass definition
 
 A test is a Python class where a test function is defined and will be run by the framework.
 
 ANTA provides an abstract class [AntaTest](https://anta.arista.com/stable/api/models/#test-definition). This class does the heavy lifting and provide the logic to define, collect and test data.
 
-#### Docstring and Class Variables
+### Docstring and Class Variables
 
 ````python
 from typing import ClassVar
@@ -62,11 +63,12 @@ The `AntaTest` class from which all ANTA tests inherit defines some mandatory cl
 - `categories`: a list of categories to sort test. The existing categories are listed on ANTA website.
 - `commands`: a list of `AntaCommand` and/or `AntaTemplate` to run for this test to be able to execute the `test` function.
 
-> **Note**
+> 📃 **Note**
+>
 > If you do not intend to contribute back your test to ANTA main repository, you do not need to respect the docstring format.
 > If the docstring is not defined, the `description` class variable must be defined.
 
-#### The `Input` class definition
+### The `Input` class definition
 
 [`AntaTest.Input`](https://anta.arista.com/stable/api/models/#anta.models.AntaTest.Input) is a [pydantic model](https://docs.pydantic.dev/latest/concepts/models/) that allow test developers to define their test inputs. `pydantic` provides out of the box error handling for test input validation based on the type hints defined by the test developer.
 
@@ -111,7 +113,7 @@ class VerifyVlanStatus(AntaTest):
         pass
 ````
 
-#### The `test` function definition
+### The `test` function definition
 
 The next step is to define the `test` function, it is the function that parse the output of the command(s) collected and decide if the test is a success, a failure or if the test should be skipped.
 
@@ -136,7 +138,8 @@ Run command show vlan on leaf1
 }
 ```
 
-> **Note**
+> 📃 **Note**
+>
 > The above `anta debug` command is equivalent to use `show vlan | json` in EOS CLI.
 
 ````python
@@ -187,7 +190,7 @@ class VerifyVlanStatus(AntaTest):
 
 That's it the test is created!
 
-### Create the catalog
+## Create the catalog
 
 The custom Python package is `custom` and the test class `VerifyVlanStatus` is defined in the `custom.vlan` Python module.
 The test catalog will look like:
@@ -200,7 +203,7 @@ custom.vlan:
         - 160
 ```
 
-### Run the test from the ANTA CLI
+## Run the test from the ANTA CLI
 
 ```bash
 # From the root of the repository
@@ -227,4 +230,4 @@ $ anta nrfu -c 2-custom-test/catalog.yml
 └────────┴──────────────────┴─────────────┴─────────────────────────────┴─────────────────────────────────────────────────────┴───────────────┘
 ```
 
-You can play with the Input.minimum uptime.
+You can play with the Inputs further

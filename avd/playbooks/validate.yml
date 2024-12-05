@@ -12,6 +12,6 @@
         # Uncomment the following lines when indicated in the lab  guide
         # skip_tests:
         #  - category: AvdTestInterfacesState
-        # 
+        #
         # The path is relative to the inventory
         # custom_anta_catalogs_dir: ../3-anta-in-avd/custom_anta_catalogs

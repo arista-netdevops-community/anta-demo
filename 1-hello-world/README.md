@@ -6,7 +6,7 @@
 
 # ANTA Hello World
 
-**Objective: Discover and run ANTA**
+**Objective:** Discover and run ANTA
 
 ## Preparation
 
@@ -65,6 +65,7 @@ sudo containerlab deploy
     ```
 
     To see only the failures:
+
     ```bash
     anta nrfu --catalog 1-hello-world/catalog.yml --hide success
     ```
@@ -98,6 +99,7 @@ anta nrfu --catalog 1-hello-world/catalog.yml --tags leaf
     ```bash
     cat 1-hello-world/snapshot.yml
     ```
+
     Commands can be collected in JSON or TEXT format.
 
 2. Collect commands using ANTA

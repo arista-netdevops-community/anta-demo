@@ -14,14 +14,13 @@ This lab takes you through the following steps:
 2. Running `eos_validate_state` towards the lab.
 3. Using a custom ANTA catalog in `eos_validate_state`
 
-
 > ⏳ **Reminder**
 >
 > This lab has been built with AVD 5.1.0 and ANTA v1.1.0
 
 ## Preparation
 
-> **📃 Note**
+> 📃 **Note**
 >
 > if you have just finished lab 1-hello-world or lab 2-custom-test you can skip this section except for AVD installation
 
@@ -36,7 +35,7 @@ ansible-galaxy collection install "arista.avd==5.1.0"
 
 ### Starting containerlab
 
-> **📃 Note**
+> 📃 **Note**
 >
 > if you are running in ATD, you can skip this step
 
@@ -139,11 +138,11 @@ ansible-playbooks playbooks/validate.yml
 
 Take a look at the Markdown report, the number of tests executed should have changed.
 
-#### Creating a failure to see it in the report
+### Creating a failure to see it in the report
 
 1. Connected to leaf1 and shutdown loopback1
 
-    ```
+    ```bash
     leaf1#conf
     leaf1(config)#interface Loopback1
     leaf1(config-if-Lo1)#shutdown
@@ -161,7 +160,7 @@ Take a look at the Markdown report, the number of tests executed should have cha
 
 3. Clean up the changes and re-run the validate playbook to restore the state.
 
-##### Skipping a test
+### Skipping a test
 
 AVD allows to skip tests, either by name or by categories. More information can be found in the [documentation](https://avd.arista.com/5.x/roles/eos_validate_state/index.html).
 
@@ -187,6 +186,7 @@ For this example we are going to skip the `AvdTestInterfacesState` category.
             skip_tests:
               - category: AvdTestInterfacesState
     ```
+
 3. Run the playbook again.
 
     The Interfaces category should be gone from the report and the total number of tests should have decreased.
@@ -196,7 +196,6 @@ For this example we are going to skip the `AvdTestInterfacesState` category.
     > If you want to skip specific interfaces only you can refer to the `eos_designs` AVD documentation to see how to set the `validate_state` key under each interface.
 
 It is possible to skip specific tests in a given category as described in the `eos_validate_state` documentation.
-
 
 > **💡 TIP**
 >
@@ -215,7 +214,7 @@ This section will take you through using the test built in lab 2 (a duplicate of
 1. Make sure the `custom` python package is installed and available.
 
     ```bash
-    useer@hostname$ pip freeze | grep custom
+    user@hostname$ pip freeze | grep custom
     # Example output if installed as editable install:
     # custom @ file:///<SOME PATH>>/anta-demo/2-custom-test
     ```
@@ -258,7 +257,7 @@ This section will take you through using the test built in lab 2 (a duplicate of
     # avd/custom_anta_catalogs/leaf1.yml
     # This catalog is applied to only leaf1
 
-    # Using a built-in ANTA test to verify vaildity of default Arista profile
+    # Using a built-in ANTA test to verify validity of default Arista profile
     anta.tests.security:
     - VerifyAPIHttpsSSL:
         profile: ARISTA_DEFAULT_PROFILE
@@ -282,7 +281,7 @@ This section will take you through using the test built in lab 2 (a duplicate of
 
 You can now leverage this lab to create and add your own tests in your own custom catalogs to your `eos_validate_state` role.
 
-## Reference:
+## Reference
 
-* ANTA documentation: [https://anta.arista.com](https://anta.arista.com)
-*  AVD `eos_validate_state`: [https://avd.arista.com/5.1/roles/eos_validate_state/](https://avd.arista.com/5.1/roles/eos_validate_state/)
+- ANTA documentation: [https://anta.arista.com](https://anta.arista.com)
+- AVD `eos_validate_state`: [https://avd.arista.com/5.1/roles/eos_validate_state/](https://avd.arista.com/5.1/roles/eos_validate_state/)

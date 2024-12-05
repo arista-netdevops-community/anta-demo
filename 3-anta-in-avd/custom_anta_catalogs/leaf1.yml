@@ -2,7 +2,7 @@
 # avd/custom_anta_catalogs/leaf1.yml
 # This catalog is applied to only leaf1
 
-# Using a built-in ANTA test to verify vaildity of default Arista profile
+# Using a built-in ANTA test to verify validity of default Arista profile
 anta.tests.security:
  - VerifyAPIHttpsSSL:
     profile: ARISTA_DEFAULT_PROFILE
