@@ -1,0 +1,6 @@
+---
+custom.vlan:
+  - VerifyVlanStatus:
+      vlans:
+        - 110
+        - 160

@@ -1,4 +1,0 @@
----
-custom.example:
-  - VerifyUptime:
-      minimum: 1

@@ -25,7 +25,7 @@ Repository is based on [containerlab](https://containerlab.dev/) for lab managem
 > Please follow [installation process](./docs/installation.md) first !
 
 1. [ANTA-101](1-network-tests/README.md): Demonstrate ANTA capabilities using cEOS as network endpoints
-2. [Build your own test(s)](2-custom-module/README.md): Demonstrate how to build your own ANTA tests library
+2. [Build your own test(s)](2-custom-test/README.md): Demonstrate how to build your own ANTA tests library
 3. [Run ANTA in AVD `eos_validate_state`](3-avd-eos-validate-state/README.md): Demonstrate how to leverage ANTA in AVD
 
 ## Containerlab Topology
