@@ -8,6 +8,8 @@
 
 ## Overview
 
+🎯 **Objective:** Leverage ANTA in AVD `eos_validate_state`
+
 This lab takes you through the following steps:
 
 1. Using `eos_validate_state` role in AVD in check mode to observe what test catalogs are generated.
@@ -17,6 +19,8 @@ This lab takes you through the following steps:
 > ⏳ **Reminder**
 >
 > This lab has been built with AVD 5.1.0 and ANTA v1.1.0
+
+You can read more about AVD `eos_validate_state` at the following URL: [https://avd.arista.com/5.1/roles/eos_validate_state/](https://avd.arista.com/5.1/roles/eos_validate_state/)
 
 ## Preparation
 
@@ -63,17 +67,18 @@ To be able to run the playbook against the devices, they must be configured with
 
 ```yaml
 ---
-ansible_httpapi_host: '{{ ansible_host }}'
-ansible_connection: httpapi
-ansible_httpapi_use_ssl: true
-# Certs _should_ be validate when outside of lab environment
-ansible_httpapi_validate_certs: false
-ansible_network_os: eos
-ansible_httpapi_port: 443
-# May not be needed
+ansible_user: admin
 ansible_become: true
 ansible_become_method: enable
+ansible_connection: ansible.netcommon.httpapi
+ansible_network_os: arista.eos.eos
+ansible_httpapi_use_ssl: true
+# Certs _should_ be validated when outside of lab environment
+ansible_httpapi_validate_certs: false
+ansible_httpapi_use_proxy: false
 ```
+
+In this repository, they are defined in the AVD `inventory.yml`
 
 ## Run `eos_validate_state` in check mode
 

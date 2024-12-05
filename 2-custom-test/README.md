@@ -6,7 +6,7 @@
 
 # Building an ANTA test
 
-**Objective:** Writing and executing a custom ANTA test
+🎯 **Objective:** Writing and executing a custom ANTA test
 
 > 📃 **Note**
 >

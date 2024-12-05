@@ -6,7 +6,7 @@
 
 # ANTA Hello World
 
-**Objective:** Discover and run ANTA
+🎯 **Objective:** Discover and run ANTA
 
 ## Preparation
 
