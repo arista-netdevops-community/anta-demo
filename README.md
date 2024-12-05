@@ -30,31 +30,7 @@ Repository is based on [containerlab](https://containerlab.dev/) for lab managem
 
 ## Containerlab Topology
 
-```mermaid
-graph TD
-  leaf3---host2
-  leaf1---spine1
-  leaf3---leaf4
-  leaf3---leaf4
-  spine1---spine2
-  leaf1---host1
-  leaf2---host1
-  leaf4---spine1
-  leaf1---spine2
-  leaf1---leaf2
-  leaf1---leaf2
-  leaf3---host2
-  leaf2---spine1
-  leaf1---host1
-  leaf2---host1
-  leaf4---host2
-  leaf3---spine1
-  leaf2---spine2
-  leaf3---spine2
-  leaf4---spine2
-  spine1---spine2
-  leaf4---host2
-```
+![topology](docs/topology.clab.svg)
 
 ## Authentication
 
@@ -63,16 +39,16 @@ graph TD
 
 ## Management IPs
 
-| Hostname | Managemnt Interface | IP Address      |
-| -------- | ------------------- | --------------  |
-| Spine1   | Management0         | 192.168.0.10/24 |
-| Spine2   | Management0         | 192.168.0.11/24 |
-| Leaf1    | Management0         | 192.168.0.12/24 |
-| Leaf2    | Management0         | 192.168.0.13/24 |
-| Leaf3    | Management0         | 192.168.0.14/24 |
-| Leaf4    | Management0         | 192.168.0.15/24 |
-| Host1    | Management0         | 192.168.0.16/24 |
-| Host2    | Management0         | 192.168.0.17/24 |
+| Hostname | IP Address      |
+| -------- | --------------  |
+| spine1   | 192.168.0.10/24 |
+| spine2   | 192.168.0.11/24 |
+| leaf1    | 192.168.0.12/24 |
+| leaf2    | 192.168.0.13/24 |
+| leaf3    | 192.168.0.14/24 |
+| leaf4    | 192.168.0.15/24 |
+| host1    | 192.168.0.16/24 |
+| host2    | 192.168.0.17/24 |
 
 ## Contribution
 

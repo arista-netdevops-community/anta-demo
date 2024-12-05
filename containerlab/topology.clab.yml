@@ -15,41 +15,59 @@ topology:
       mgmt-ipv4: 192.168.0.10
       startup-config: ../avd/intended/configs/spine1.cfg
       group: spine
+      labels:
+        graph-level: 1
     spine2:
       kind: ceos
       mgmt-ipv4: 192.168.0.11
       startup-config: ../avd/intended/configs/spine2.cfg
       group: spine
+      labels:
+        graph-level: 1
     leaf1:
       kind: ceos
       mgmt-ipv4: 192.168.0.12
       startup-config: ../avd/intended/configs/leaf1.cfg
       group: leaf
+      labels:
+        graph-level: 2
     leaf2:
       kind: ceos
       mgmt-ipv4: 192.168.0.13
       startup-config: ../avd/intended/configs/leaf2.cfg
       group: leaf
+      labels:
+        graph-level: 2
     leaf3:
       kind: ceos
       mgmt-ipv4: 192.168.0.14
       startup-config: ../avd/intended/configs/leaf3.cfg
       group: leaf
+      labels:
+        graph-level: 2
     leaf4:
       kind: ceos
       mgmt-ipv4: 192.168.0.15
       startup-config: ../avd/intended/configs/leaf4.cfg
       group: leaf
+      labels:
+        graph-level: 2
     host1:
       kind: ceos
       mgmt-ipv4: 192.168.0.16
       startup-config: configs/host1.cfg
       group: server
+      labels:
+        graph-level: 3
+        graph-icon: host
     host2:
       kind: ceos
       mgmt-ipv4: 192.168.0.17
       startup-config: configs/host2.cfg
       group: server
+      labels:
+        graph-level: 3
+        graph-icon: host
 
   links:
     # Spines
