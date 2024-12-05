@@ -7,7 +7,7 @@ __pycache__
 # Python virtual environment
 venv
 # containerlab run folder
-containerlab-topology/clab-anta-demo/*
+containerlab/clab-anta-demo
 *.bak
 # ANTA snapshot
 anta_snapshot_*
