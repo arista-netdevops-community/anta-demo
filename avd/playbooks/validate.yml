@@ -1,11 +1,17 @@
 ---
-- name: Validate states on EOS devices using ANTA
+- name: Validate states on EOS devices
   hosts: LAB
   gather_facts: false
 
   tasks:
-    - name: Validate states on EOS devices using ANTA
+    - name: Validate states on EOS devices
       ansible.builtin.import_role:
         name: arista.avd.eos_validate_state
       vars:
         save_catalog: true
+        # Uncomment the following lines when indicated in the lab  guide
+        # skip_tests:
+        #  - category: AvdTestInterfacesState
+        # 
+        # The path is relative to the inventory
+        # custom_anta_catalogs_dir: ../3-anta-in-avd/custom_anta_catalogs

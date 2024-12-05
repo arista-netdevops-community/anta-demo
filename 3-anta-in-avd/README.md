@@ -14,13 +14,14 @@ This lab takes you through the following steps:
 2. Running `eos_validate_state` towards the lab.
 3. Using a custom ANTA catalog in `eos_validate_state`
 
-> **Reminder**
+
+> ⏳ **Reminder**
 >
 > This lab has been built with AVD 5.1.0 and ANTA v1.1.0
 
 ## Preparation
 
-> **Note**
+> **📃 Note**
 >
 > if you have just finished lab 1-network-tests or lab 2-custom-test you can skip this section except for AVD installation
 
@@ -35,7 +36,7 @@ ansible-galaxy collection install "arista.avd==5.1.0"
 
 ### Starting containerlab
 
-> **Note**
+> **📃 Note**
 >
 > if you are running in ATD, you can skip this step
 
@@ -79,7 +80,7 @@ ansible_become_method: enable
 
 In this section, the goal is to run the `eos_validate_state` in check mode, which will execute the equivalent of an `anta nrfu --dry-run`.
 
-> **IMPORTANT**
+> ⚠️ **IMPORTANT**
 >
 > This step **does not** run any test or command towards the network.
 
@@ -136,4 +137,152 @@ cd avd
 ansible-playbooks playbooks/validate.yml
 ```
 
-Take a look
+Take a look at the Markdown report, the number of tests executed should have changed.
+
+#### Creating a failure to see it in the report
+
+1. Connected to leaf1 and shutdown loopback1
+
+    ```
+    leaf1#conf 
+    leaf1(config)#interface Loopback1
+    leaf1(config-if-Lo1)#shutdown
+    ```
+
+2. re-run the validate playbook
+
+    ```bash
+    # from the root of the repo
+    cd avd
+    ansible-playbooks playbooks/validate.yml
+    ```
+
+    Open the report again and notice that some tests are now failing for leaf1 (Loopback1 and Vxlan interfaces are down).
+
+3. Clean up the changes and re-run the validate playbook to restore the state.
+
+##### Skipping a test
+
+AVD allows to skip tests, either by name or by categories. More information can be found in the [documentation](https://avd.arista.com/5.x/roles/eos_validate_state/index.html).
+
+For this example we are going to skip the `AvdTestInterfacesState` category.
+
+1. Check the number of test in the "Interfaces" category in the report. (At the time of writing it read 70, new tests are being added and it is topology dependent so this number may not be up-to-date, what matters is that it is non-zero).
+
+2. Update the validate playbook by uncommenting the following lines:
+
+    ```yaml
+    ---
+    - name: Validate states on EOS devices
+      hosts: LAB
+      gather_facts: false
+
+      tasks:
+        - name: validate states on EOS devices
+          ansible.builtin.import_role:
+            name: arista.avd.eos_validate_state
+          vars:
+            save_catalog: true
+            # Uncomment the following lines when indicated in the lab  guide
+            skip_tests:
+              - category: AvdTestInterfacesState
+    ```
+3. Run the playbook again.
+
+    The Interfaces category should be gone from the report and the total number of tests should have decreased.
+
+    > **📃 Note**
+    >
+    > If you want to skip specific interfaces only you can refer to the `eos_designs` AVD documentation to see how to set the `validate_state` key under each interface.
+
+It is possible to skip specific tests in a given category as described in the `eos_validate_state` documentation.
+
+
+> **💡 TIP**
+>
+> If you feel like some additional tests could be added in `eos_validate_state` open a [Github issue](https://github.com/aristanetworks/avd/issues). The main coverage is on DC designs for now.
+
+## Using a custom catalog
+
+It is possible to leverage custom ANTA catalogs in AVD `eos_validate_state` for example to add built-in ANTA tests which could be missing or even to run your own.
+
+This section will take you through using the test built in lab 2 (a duplicate of `VerifyUptime`) in a custom catalog in AVD.
+
+> 📃 **Note**
+>
+> If you have not run lab2. you can still run this lab, skip step 1.
+
+1. Make sure the `custom` python package is installed and available.
+
+    ```bash
+    useer@hostname$ pip freeze | grep custom
+    # Example output if installed as editable install:
+    # custom @ file:///<SOME PATH>>/anta-demo/2-custom-module
+    ```
+
+2. The custom catalogs has been built in `3-anta-in-avd/custom_anta_catalogs`.
+
+    ```bash
+    user@hostname$ tree 3-anta-in-avd/custom_anta_catalogs 
+    3-anta-in-avd/custom_anta_catalogs
+    ├── LAB.yml
+    └── leaf1.yml
+    ```
+
+    There are two custom catalogs one applied to all the devices in the `LAB` group in Ansible inventory. (6 devices, 2 spines, 4 leafs). and one applied to only `leaf1`. The name of the file is used by `eos_validate_state` to map a catalog file to a device.
+
+    The two catalogs are as follow:
+
+    The `LAB.yml` catalog has an option to 
+
+    ```yaml
+    ---
+    # 3-anta-in-avd/custom_anta_catalogs/LAB.yml
+    # This catalog is applied to all devices in the LAB group in the AVD inventory
+
+    # Use the next test if you have completed lab 2, otherwise comment it.
+    custom.example:
+      - VerifyUptime:
+          minimum: 42
+
+    # If you have not completed lab 2 you can use the built-in ANTA test instead.
+    # anta.tests.system:
+    #  - VerifyUptime:
+    #      minimum: 42
+    ```
+
+    The `leaf1.yml` catalog just add a test to validate the default SSL profile. This is only for the purpose of showing how to add a test per device.
+
+    ```yaml
+        ---
+    # avd/custom_anta_catalogs/leaf1.yml
+    # This catalog is applied to only leaf1
+
+    # Using a built-in ANTA test to verify vaildity of default Arista profile
+    anta.tests.security:
+    - VerifyAPIHttpsSSL:
+        profile: ARISTA_DEFAULT_PROFILE
+    ```
+
+3. Edit the `validate.yml` playbook. 
+
+    Uncomment the `custom_anta_catalogs_dir: ../3-anta-in-avd/custom_anta_catalogs` line
+
+4. Run the `validate.yml` playbook
+
+    ```bash
+    # from the root of the repo
+    cd avd
+    ansible-playbooks playbooks/validate.yml
+    ```
+
+5. Check that in the `intended/test_catalogs` new tests have appeared at the end of the catalogs (notice how leaf1 has the SSL test)
+
+6. Check the makrdown report and see the new category appear (if using the custom test from lab2 you should be seeing a `Custom_System` category)
+
+You can now leverage this lab to create and add your own tests in your own custom catalogs to your `eos_validate_state` role.
+
+## Reference:
+
+* ANTA documentation: [https://anta.arista.com](https://anta.arista.com)
+*  AVD `eos_validate_state`: [https://avd.arista.com/5.1/roles/eos_validate_state/](https://avd.arista.com/5.1/roles/eos_validate_state/)

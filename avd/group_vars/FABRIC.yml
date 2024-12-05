@@ -1,5 +1,4 @@
 ---
-# L3LS Fabric Values - update these values with caution,
 fabric_name: FABRIC
 
 # Enable vlan aware bundles

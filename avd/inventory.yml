@@ -5,6 +5,7 @@ all:
       ansible_host: 192.168.0.5
       ansible_user: cvpadmin
       ansible_password: SERVICE_ACCOUNT_TOKEN
+  children:
     LAB:
       vars:
         ansible_user: admin
