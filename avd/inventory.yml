@@ -1,18 +1,20 @@
 ---
 all:
-  children:
-    cv_servers:
-      hosts:
-        cv_atd1:
-          ansible_host: 192.168.0.5
-          ansible_user: arista
-          # Update this if using ATD
-          ansible_password: arista
+  hosts:
+    cloudvision:
+      ansible_host: 192.168.0.5
+      ansible_user: cvpadmin
+      ansible_password: SERVICE_ACCOUNT_TOKEN
     LAB:
       vars:
-        ansible_user: arista
-        # Update this if using ATD
-        ansible_password: arista
+        ansible_user: admin
+        ansible_become: true
+        ansible_become_method: enable
+        ansible_connection: ansible.netcommon.httpapi
+        ansible_network_os: arista.eos.eos
+        ansible_httpapi_use_ssl: true
+        ansible_httpapi_validate_certs: false
+        ansible_httpapi_use_proxy: false
       children:
         FABRIC:
           children:

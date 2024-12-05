@@ -4,7 +4,6 @@
 
 - [Management](#management)
   - [Management Interfaces](#management-interfaces)
-  - [DNS Domain](#dns-domain)
   - [IP Name Servers](#ip-name-servers)
   - [Clock Settings](#clock-settings)
   - [NTP](#ntp)
@@ -12,6 +11,7 @@
 - [Authentication](#authentication)
   - [Local Users](#local-users)
   - [Enable Password](#enable-password)
+  - [AAA Authentication](#aaa-authentication)
   - [AAA Authorization](#aaa-authorization)
 - [Monitoring](#monitoring)
   - [TerminAttr Daemon](#terminattr-daemon)
@@ -82,31 +82,18 @@ interface Management0
    ip address 192.168.0.15/24
 ```
 
-### DNS Domain
-
-DNS domain: anta.example
-
-#### DNS Domain Device Configuration
-
-```eos
-dns domain anta.example
-!
-```
-
 ### IP Name Servers
 
 #### IP Name Servers Summary
 
 | Name Server | VRF | Priority |
 | ----------- | --- | -------- |
-| 192.168.2.1 | default | - |
 | 8.8.8.8 | default | - |
 
 #### IP Name Servers Device Configuration
 
 ```eos
 ip name-server vrf default 8.8.8.8
-ip name-server vrf default 192.168.2.1
 ```
 
 ### Clock Settings
@@ -183,7 +170,6 @@ management api http-commands
 | User | Privilege | Role | Disabled | Shell |
 | ---- | --------- | ---- | -------- | ----- |
 | admin | 15 | network-admin | False | - |
-| ansible | 15 | network-admin | False | - |
 | arista | 15 | network-admin | False | - |
 
 #### Local Users Device Configuration
@@ -191,13 +177,28 @@ management api http-commands
 ```eos
 !
 username admin privilege 15 role network-admin nopassword
-username ansible privilege 15 role network-admin secret sha512 <removed>
 username arista privilege 15 role network-admin secret sha512 <removed>
 ```
 
 ### Enable Password
 
 Enable password has been disabled
+
+### AAA Authentication
+
+#### AAA Authentication Summary
+
+| Type | Sub-type | User Stores |
+| ---- | -------- | ---------- |
+
+Policy local allow-nopassword-remote-login has been enabled.
+
+#### AAA Authentication Device Configuration
+
+```eos
+aaa authentication policy local allow-nopassword-remote-login
+!
+```
 
 ### AAA Authorization
 
@@ -224,14 +225,14 @@ aaa authorization exec default local
 
 | CV Compression | CloudVision Servers | VRF | Authentication | Smash Excludes | Ingest Exclude | Bypass AAA |
 | -------------- | ------------------- | --- | -------------- | -------------- | -------------- | ---------- |
-| gzip | 10.73.1.238:9910 | default | token,/tmp/token | ale,flexCounter,hardware,kni,pulse,strata | /Sysdb/cell/1/agent,/Sysdb/cell/2/agent | False |
+| gzip | 192.168.0.5:9910 | default | token,/mnt/flash/cv-onboarding-token | ale,flexCounter,hardware,kni,pulse,strata | /Sysdb/cell/1/agent,/Sysdb/cell/2/agent | False |
 
 #### TerminAttr Daemon Device Configuration
 
 ```eos
 !
 daemon TerminAttr
-   exec /usr/bin/TerminAttr -cvaddr=10.73.1.238:9910 -cvauth=token,/tmp/token -cvvrf=default -cvsourceip=192.168.0.15 -cvgnmi -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs
+   exec /usr/bin/TerminAttr -cvaddr=192.168.0.5:9910 -cvauth=token,/mnt/flash/cv-onboarding-token -cvvrf=default -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs
    no shutdown
 ```
 

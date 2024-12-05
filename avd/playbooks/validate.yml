@@ -1,10 +1,10 @@
 ---
-- name: Validate states on EOS devices
+- name: Validate states on EOS devices using ANTA
   hosts: LAB
   gather_facts: false
 
   tasks:
-    - name: validate states on EOS devices
+    - name: Validate states on EOS devices using ANTA
       ansible.builtin.import_role:
         name: arista.avd.eos_validate_state
       vars:

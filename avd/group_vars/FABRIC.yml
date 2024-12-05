@@ -82,12 +82,6 @@ l3leaf:
           mgmt_ip: 192.168.0.15/24
           uplink_switch_interfaces: [Ethernet5, Ethernet5]
 
-#### Override for vEOS Lab Caveats ####
-
-# Disable update wait-for-convergence and update wait-for-install,
-# which is not supported in vEOS-LAB.
-# Refer to design guide
-
 # Update p2p mtu 9000 -> 1500
 p2p_uplinks_mtu: 1500
 
