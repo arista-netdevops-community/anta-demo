@@ -43,7 +43,7 @@ ansible-galaxy collection install "arista.avd==5.1.0"
 >
 > if you are running in ATD, you can skip this step
 
-Refer to lab 1 [Preparation](../1-network-tests/#Preparation) steps.
+Refer to lab 1 [Preparation](../1-hello-world#preparation) steps.
 
 ## The `validate.yml` playbook
 
