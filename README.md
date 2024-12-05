@@ -24,13 +24,37 @@ Repository is based on [containerlab](https://containerlab.dev/) for lab managem
 > **Note**
 > Please follow [installation process](./docs/installation.md) first !
 
-1. [ANTA-101](1-network-tests/README.md): Demonstrate ANTA capabilities using cEOS as network endpoints
-2. [Build your own test(s)](2-custom-test/README.md): Demonstrate how to build your own ANTA tests library
+1. [Hello World](1-hwllo-world/README.md): Discover and run ANTA
+2. [Build your own test](2-custom-test/README.md): Write and execute a custom test
 3. [Run ANTA in AVD `eos_validate_state`](3-avd-eos-validate-state/README.md): Demonstrate how to leverage ANTA in AVD
 
 ## Containerlab Topology
 
-![topology](diagram.png)
+```mermaid
+graph TD
+  leaf3---host2
+  leaf1---spine1
+  leaf3---leaf4
+  leaf3---leaf4
+  spine1---spine2
+  leaf1---host1
+  leaf2---host1
+  leaf4---spine1
+  leaf1---spine2
+  leaf1---leaf2
+  leaf1---leaf2
+  leaf3---host2
+  leaf2---spine1
+  leaf1---host1
+  leaf2---host1
+  leaf4---host2
+  leaf3---spine1
+  leaf2---spine2
+  leaf3---spine2
+  leaf4---spine2
+  spine1---spine2
+  leaf4---host2
+```
 
 ## Authentication
 

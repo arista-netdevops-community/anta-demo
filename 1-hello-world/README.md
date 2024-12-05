@@ -61,26 +61,26 @@ sudo containerlab deploy
 3. Run ANTA testing
 
     ```bash
-    anta nrfu --catalog 1-network-tests/catalog.yml
+    anta nrfu --catalog 1-hello-world/catalog.yml
     ```
 
     To see only the failures:
     ```bash
-    anta nrfu --catalog 1-network-tests/catalog.yml --hide success
+    anta nrfu --catalog 1-hello-world/catalog.yml --hide success
     ```
 
 4. Analyze the first results
 
     There should be test failures on `spine1` and `spine2` devices.
 
-5. Update the [`catalog.yml`](1-network-tests/catalog.yml) file:
+5. Update the [`catalog.yml`](1-hello-world/catalog.yml) file:
     - Under test [`VerifyBGPPeerCount`](https://anta.arista.com/stable/api/tests.routing.bgp/#anta.tests.routing.bgp.VerifyBGPPeerCount) update the expected number of peers (`num_peers`) of the `evpn` address family to **`2`** for the `spines` devices
     - Under test [`VerifyLoopbackCount`](https://anta.arista.com/stable/api/tests.interfaces/#anta.tests.interfaces.VerifyLoopbackCount) update the expected number of loopbacks to **`1`** for the `spines` devices
 
 6. Run ANTA again, there should be no failures now
 
     ```bash
-    anta nrfu --catalog 1-network-tests/catalog.yml
+    anta nrfu --catalog 1-hello-world/catalog.yml
     ```
 
 ### Focusing on Leaf devices
@@ -88,7 +88,7 @@ sudo containerlab deploy
 Run testing only on leaf devices
 
 ```bash
-anta nrfu --catalog 1-network-tests/catalog.yml --tags leaf
+anta nrfu --catalog 1-hello-world/catalog.yml --tags leaf
 ```
 
 ## Collect a batch of command outputs from the devices
@@ -96,12 +96,12 @@ anta nrfu --catalog 1-network-tests/catalog.yml --tags leaf
 1. Review the list of command to collect
 
     ```bash
-    cat 1-network-tests/snapshot.yml
+    cat 1-hello-world/snapshot.yml
     ```
     Commands can be collected in JSON or TEXT format.
 
 2. Collect commands using ANTA
 
     ```bash
-    anta exec snapshot -c 1-network-tests/snapshot.yml
+    anta exec snapshot -c 1-hello-world/snapshot.yml
     ```

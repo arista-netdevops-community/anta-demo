@@ -23,7 +23,7 @@ This lab takes you through the following steps:
 
 > **📃 Note**
 >
-> if you have just finished lab 1-network-tests or lab 2-custom-test you can skip this section except for AVD installation
+> if you have just finished lab 1-hello-world or lab 2-custom-test you can skip this section except for AVD installation
 
 ### Installing AVD
 
