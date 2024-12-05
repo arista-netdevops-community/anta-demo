@@ -144,7 +144,7 @@ Take a look at the Markdown report, the number of tests executed should have cha
 1. Connected to leaf1 and shutdown loopback1
 
     ```
-    leaf1#conf 
+    leaf1#conf
     leaf1(config)#interface Loopback1
     leaf1(config-if-Lo1)#shutdown
     ```
@@ -217,13 +217,13 @@ This section will take you through using the test built in lab 2 (a duplicate of
     ```bash
     useer@hostname$ pip freeze | grep custom
     # Example output if installed as editable install:
-    # custom @ file:///<SOME PATH>>/anta-demo/2-custom-module
+    # custom @ file:///<SOME PATH>>/anta-demo/2-custom-test
     ```
 
 2. The custom catalogs has been built in `3-anta-in-avd/custom_anta_catalogs`.
 
     ```bash
-    user@hostname$ tree 3-anta-in-avd/custom_anta_catalogs 
+    user@hostname$ tree 3-anta-in-avd/custom_anta_catalogs
     3-anta-in-avd/custom_anta_catalogs
     ├── LAB.yml
     └── leaf1.yml
@@ -233,7 +233,7 @@ This section will take you through using the test built in lab 2 (a duplicate of
 
     The two catalogs are as follow:
 
-    The `LAB.yml` catalog has an option to 
+    The `LAB.yml` catalog has an option to
 
     ```yaml
     ---
@@ -264,7 +264,7 @@ This section will take you through using the test built in lab 2 (a duplicate of
         profile: ARISTA_DEFAULT_PROFILE
     ```
 
-3. Edit the `validate.yml` playbook. 
+3. Edit the `validate.yml` playbook.
 
     Uncomment the `custom_anta_catalogs_dir: ../3-anta-in-avd/custom_anta_catalogs` line
 

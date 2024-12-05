@@ -4,7 +4,9 @@
   ~ that can be found in the LICENSE file.
   -->
 
-# ANTA Demo step by step
+# ANTA Hello World
+
+**Objective: Discover and run ANTA**
 
 ## Preparation
 
@@ -59,40 +61,34 @@ sudo containerlab deploy
 3. Run ANTA testing
 
     ```bash
-    anta nrfu --catalog 1-network-tests/nrfu.yml
+    anta nrfu --catalog 1-network-tests/catalog.yml
     ```
 
     To see only the failures:
     ```bash
-    anta nrfu --catalog 1-network-tests/nrfu.yml --hide success
+    anta nrfu --catalog 1-network-tests/catalog.yml --hide success
     ```
 
 4. Analyze the first results
 
     There should be test failures on `spine1` and `spine2` devices.
 
-5. Update the [`nrfu.yml`](1-network-tests/nrfu.yml) file:
+5. Update the [`catalog.yml`](1-network-tests/catalog.yml) file:
     - Under test [`VerifyBGPPeerCount`](https://anta.arista.com/stable/api/tests.routing.bgp/#anta.tests.routing.bgp.VerifyBGPPeerCount) update the expected number of peers (`num_peers`) of the `evpn` address family to **`2`** for the `spines` devices
     - Under test [`VerifyLoopbackCount`](https://anta.arista.com/stable/api/tests.interfaces/#anta.tests.interfaces.VerifyLoopbackCount) update the expected number of loopbacks to **`1`** for the `spines` devices
 
 6. Run ANTA again, there should be no failures now
 
     ```bash
-    anta nrfu --catalog 1-network-tests/nrfu.yml
+    anta nrfu --catalog 1-network-tests/catalog.yml
     ```
 
-## Focusing on Leaf devices
+### Focusing on Leaf devices
 
 Run testing only on leaf devices
 
 ```bash
-anta nrfu --catalog 1-network-tests/nrfu.yml --tags leaf
-```
-
-## Get the JSON output of a specific command from a device
-
-```bash
-anta debug run-cmd -c "show lldp neighbors" --device spine1
+anta nrfu --catalog 1-network-tests/catalog.yml --tags leaf
 ```
 
 ## Collect a batch of command outputs from the devices
