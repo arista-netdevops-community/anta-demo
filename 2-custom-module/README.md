@@ -11,45 +11,6 @@
 This lab shows how to make a custom test available to ANTA by installing a
 Python package that contains it, making it importable by Python.
 
-## Preparation
-
-> **Note**
-> if you have just finished lab 1-network-tests you can skip this section
-
-### Checking ANTA installation
-
-Make sure the two following commands return correctly
-
-```bash
-anta --version
-anta --help
-```
-
-For every ANTA CLI command you can always run `anta foo --help` to get more information.
-
-### Starting containerlab
-
-> **Note**
-> if you are running in ATD, you can skip this step
-
-- download cEOS in version 4.32.0F
-
-```bash
-ardl --token <ARISTA TOKEN> get eos --version 4.32.0F --image-type cEOS --import-docker
-```
-
-> **Note**
-> You can generate an ARISTA TOKEN with an arista.com account following these steps: TODO
-
-- Start initial topology
-
-```bash
-# From the root of the repository
-cd containerlab-topology
-sudo containerlab deploy --topo topology.yml --reconfigure
-cd ..
-```
-
 ## Steps
 
 A custom library is provided part of this repository under `custom` folder. All your tests should be created here in this demo context.

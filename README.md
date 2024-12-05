@@ -10,7 +10,7 @@
 
 This repository is built to support demo about how to use [Arista Network Testing Automation](https://anta.arista.com) framework.
 
-Repository is based on [containerlab](https://containerlab.dev/) for lab management, [eos-download](https://github.com/titom73/eos-downloader) for cEOS image management
+Repository is based on [containerlab](https://containerlab.dev/) for lab management, [eos-downloader](https://github.com/titom73/eos-downloader) for cEOS image management
 
 [Installation process](./docs/installation.md) is provided in this page.
 
@@ -30,11 +30,11 @@ Repository is based on [containerlab](https://containerlab.dev/) for lab managem
 
 ## Containerlab Topology
 
-![atd-lab-topology](diagram.png)
+![topology](diagram.png)
 
 ## Authentication
 
-- Username: **ansible** (password: `ansible`)
+- Username: **admin** (no password)
 - Username: **arista** (password: `arista`)
 
 ## Management IPs
@@ -49,10 +49,6 @@ Repository is based on [containerlab](https://containerlab.dev/) for lab managem
 | Leaf4    | Management0         | 192.168.0.15/24 |
 | Host1    | Management0         | 192.168.0.16/24 |
 | Host2    | Management0         | 192.168.0.17/24 |
-
-## Startup configuration
-
-Devices configuration are saved under [containerlab-topology/configs](containerlab-topology/configs) folder
 
 ## Contribution
 

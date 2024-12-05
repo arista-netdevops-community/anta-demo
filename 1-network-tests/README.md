@@ -24,22 +24,21 @@ For every ANTA CLI command you can always run `anta foo --help` to get more info
 > **Note**
 > if you are running in ATD, you can skip this step
 
-- download cEOS in version 4.32.0F
+- download cEOS in version 4.33.0F
 
 ```bash
-ardl --token <ARISTA TOKEN> get eos --version 4.32.0F --image-type cEOS --import-docker
+ardl --token <ARISTA_TOKEN> get eos --version 4.33.0F --image-type cEOS --import-docker
 ```
 
 > **Note**
-> You can generate an ARISTA TOKEN with an arista.com account following these steps: TODO
+> The ARISTA_TOKEN value comes from your arista.com account profile
 
-- Start initial topology
+- Start the containerlab topology
 
 ```bash
 # From the root of the repository
-cd containerlab-topology
-sudo containerlab deploy --topo topology.yml --reconfigure
-cd ..
+cd containerlab
+sudo containerlab deploy
 ```
 
 ## Network Ready for Use
@@ -47,6 +46,7 @@ cd ..
 1. Review ANTA environment variables that will be set in [`anta.env`](../anta.env)
 
     ```bash
+    # From the root of the repository
     cat anta.env
     ```
 
@@ -59,19 +59,26 @@ cd ..
 3. Run ANTA testing
 
     ```bash
-    anta nrfu --catalog 1-network-tests/nrfu.yml table
+    anta nrfu --catalog 1-network-tests/nrfu.yml
+    ```
+
+    To see only the failures:
+    ```bash
+    anta nrfu --catalog 1-network-tests/nrfu.yml --hide success
     ```
 
 4. Analyze the first results
 
-5. Update NRFU tests to with
-    - Under test `VerifyBGPIPv4UnicastCount:` update `number: 4`
-    - Under test `VerifyLoopbackCount:` update `number: 1`
+    There should be test failures on `spine1` and `spine2` devices.
 
-6. Run ANTA testing
+5. Update the [`nrfu.yml`](1-network-tests/nrfu.yml) file:
+    - Under test [`VerifyBGPPeerCount`](https://anta.arista.com/stable/api/tests.routing.bgp/#anta.tests.routing.bgp.VerifyBGPPeerCount) update the expected number of peers (`num_peers`) of the `evpn` address family to **`2`** for the `spines` devices
+    - Under test [`VerifyLoopbackCount`](https://anta.arista.com/stable/api/tests.interfaces/#anta.tests.interfaces.VerifyLoopbackCount) update the expected number of loopbacks to **`1`** for the `spines` devices
+
+6. Run ANTA again, there should be no failures now
 
     ```bash
-    anta nrfu --catalog 1-network-tests/nrfu.yml table
+    anta nrfu --catalog 1-network-tests/nrfu.yml
     ```
 
 ## Focusing on Leaf devices
@@ -79,33 +86,25 @@ cd ..
 Run testing only on leaf devices
 
 ```bash
-anta nrfu --catalog 1-network-tests/nrfu.yml --tags leaf table
+anta nrfu --catalog 1-network-tests/nrfu.yml --tags leaf
 ```
 
-## Run a debug command on a specific device
+## Get the JSON output of a specific command from a device
 
 ```bash
-anta debug run-cmd -c "show lldp neighbors" --device spine01
+anta debug run-cmd -c "show lldp neighbors" --device spine1
 ```
 
-## Group result per test or per device
+## Collect a batch of command outputs from the devices
 
-```bash
-anta nrfu -c 1-network-tests/nrfu.yml table --group-by device
-anta nrfu -c 1-network-tests/nrfu.yml table --group-by test
-```
-
-## Collect Data from network
-
-1. Edit list of command to capture
+1. Review the list of command to collect
 
     ```bash
-    vim 1-network-tests/snapshot.yml
+    cat 1-network-tests/snapshot.yml
     ```
+    Commands can be collected in JSON or TEXT format.
 
-    You can show commands to capture JSON or Text outputs.
-
-2. Capture commands using ANTA
+2. Collect commands using ANTA
 
     ```bash
     anta exec snapshot -c 1-network-tests/snapshot.yml

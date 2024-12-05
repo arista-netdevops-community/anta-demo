@@ -1,13 +1,11 @@
 ---
 anta.tests.configuration:
-  # Verifies ZeroTouch is disabled.
   - VerifyZeroTouch:
-  - VerifyRunningConfigDiffs:
 
 anta.tests.software:
   - VerifyEOSVersion:
       versions:
-        - '4.28.3M-28837868.4283M (engineering build)'
+        - 4.33.0F-39050855.4330F (engineering build) # cEOS-lab specific version string
 
 anta.tests.routing.bgp:
   - VerifyBGPPeerCount:
@@ -15,12 +13,24 @@ anta.tests.routing.bgp:
         - afi: evpn
           num_peers: 2
       filters:
-        tags: [leaf, spine]
+        tags: [spine]
+  - VerifyBGPPeerCount:
+      address_families:
+        - afi: evpn
+          num_peers: 2
+      filters:
+        tags: [leaf]
 
 anta.tests.interfaces:
   - VerifyInterfaceUtilization:
   - VerifyLoopbackCount:
       number: 3
+      filters:
+        tags: [leaf]
+  - VerifyLoopbackCount:
+      number: 3
+      filters:
+        tags: [spine]
 
 anta.tests.system:
   - VerifyReloadCause:
@@ -31,8 +41,5 @@ anta.tests.mlag:
       filters:
         tags: [leaf]
   - VerifyMlagInterfaces:
-      filters:
-        tags: [leaf]
-  - VerifyMlagConfigSanity:
       filters:
         tags: [leaf]
