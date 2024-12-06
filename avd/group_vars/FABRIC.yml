@@ -1,5 +1,5 @@
 ---
-fabric_name: FABRIC
+fabric_name: FABR
 
 # Enable vlan aware bundles
 evpn_vlan_aware_bundles: true

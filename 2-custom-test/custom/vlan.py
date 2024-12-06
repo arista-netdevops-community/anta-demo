@@ -23,6 +23,10 @@ class VerifyVlanStatus(AntaTest):
     ```
     """
 
+    # The two following field will be optional starting ANTA v1.2.0
+    name: ClassVar[str] = "VerifyVlanStatus"
+    description: ClassVar[str] = "Verifies if the VLANs provided as input are active."
+
     categories: ClassVar[list[str]] = ["vlan"]
     commands: ClassVar[list[AntaCommand | AntaTemplate]] = [AntaCommand(command="show vlan", revision=1)]
 
