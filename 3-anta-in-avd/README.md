@@ -221,7 +221,7 @@ This section will take you through using the test built in lab 2 (`VerifyVlansSt
     ```bash
     # from the root of the repo
     cd avd
-    PYTHONPATH=../2-custom-test python -c "import custom"
+    python -c "import custom"
     ```
 
     If it does not work make sure you have sourced `anta.env` properly
@@ -280,8 +280,7 @@ This section will take you through using the test built in lab 2 (`VerifyVlansSt
     ```bash
     # from the root of the repo
     cd avd
-    # Need to set the python path to access our custom test
-    PYTHONPATH=../2-custom-test ansible-playbooks playbooks/validate.yml
+    ansible-playbooks playbooks/validate.yml
     ```
 
 5. Check that in the `intended/test_catalogs` new tests have appeared at the end of the catalogs (notice how leaf1 has the SSL test)
