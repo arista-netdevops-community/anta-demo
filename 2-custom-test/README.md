@@ -45,6 +45,9 @@ class VerifyVlanStatus(AntaTest):
     ```yaml
     custom.vlan:
       - VerifyVlanStatus:
+          vlans:
+            - 666
+            - 42
     ```
     """
     # The two following field will be optional starting ANTA v1.2.0
