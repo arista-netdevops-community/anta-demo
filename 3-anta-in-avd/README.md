@@ -145,7 +145,7 @@ Take a look at the Markdown report, the number of tests executed should have cha
 
 ### Creating a failure to see it in the report
 
-1. Connected to leaf1 and shutdown loopback1
+1. Connect to leaf1 and shutdown loopback1
 
     ```bash
     leaf1#conf
@@ -196,7 +196,7 @@ For this example we are going to skip the `AvdTestInterfacesState` category.
 
     The Interfaces category should be gone from the report and the total number of tests should have decreased.
 
-    > **📃 Note**
+    > 📃 **Note**
     >
     > If you want to skip specific interfaces only you can refer to the `eos_designs` AVD documentation to see how to set the `validate_state` key under each interface.
 
@@ -210,14 +210,21 @@ It is possible to skip specific tests in a given category as described in the `e
 
 It is possible to leverage custom ANTA catalogs in AVD `eos_validate_state` for example to add built-in ANTA tests which could be missing or even to run your own.
 
-This section will take you through using the test built in lab 2 in a custom catalog in AVD.
+This section will take you through using the test built in lab 2 (`VerifyVlansStatus`) in a custom catalog in AVD.
+
+> 📃 **Note**
+>
+> If you have not run lab2. you can still run this lab, skip step 1.
 
 1. Make sure the `custom` python package is installed and available.
 
     ```bash
     # from the root of the repo
-    user@hostname$ python -c "import custom"
+    cd avd
+    python -c "import custom"
     ```
+
+    If it does not work make sure you have sourced `anta.env` properly
 
 2. The custom catalogs has been built in `3-anta-in-avd/custom_anta_catalogs`.
 
@@ -239,14 +246,14 @@ This section will take you through using the test built in lab 2 in a custom cat
     # 3-anta-in-avd/custom_anta_catalogs/LAB.yml
     # This catalog is applied to all devices in the LAB group in the AVD inventory
 
-    # Use the next test if you have completed lab 2
+    # Use the next test if you have completed lab 2, otherwise comment it.
     custom.vlan:
       - VerifyVlanStatus:
           vlans:
             - 110
             - 160
 
-    # If you have not completed lab 2 you can use a built-in ANTA test instead
+    # If you have not completed lab 2 you can use a built-in ANTA test instead.
     # anta.tests.system:
     #  - VerifyUptime:
     #      minimum: 42
@@ -256,13 +263,12 @@ This section will take you through using the test built in lab 2 in a custom cat
 
     ```yaml
     ---
-    # 3-anta-in-avd/custom_anta_catalogs/LAB.yml
+    # 3-anta-in-avd/custom_anta_catalogs/leaf1.yml
     # This catalog is applied to only leaf1
 
-    # Using a built-in ANTA test to verify validity of default Arista profile
+    # Using a built-in ANTA test to verify that HTTP is disabled for eAPI
     anta.tests.security:
-    - VerifyAPIHttpsSSL:
-        profile: ARISTA_DEFAULT_PROFILE
+    - VerifyAPIHttpStatus:
     ```
 
 3. Edit the `validate.yml` playbook.
@@ -279,11 +285,11 @@ This section will take you through using the test built in lab 2 in a custom cat
 
 5. Check that in the `intended/test_catalogs` new tests have appeared at the end of the catalogs (notice how leaf1 has the SSL test)
 
-6. Check the makrdown report and see the new category appear (if using the custom test from lab2 you should be seeing a `VLAN` category)
+6. Check the makrdown report and see the new category appear (if using the custom test from lab2 you should be seeing a `VLAN` category, the test is failing on the spines and successful on the leafs.)
 
-You can now leverage this lab to create and add your own tests in your own custom catalogs to your AVD project!
+You can now leverage this lab to create and add your own tests in your own custom catalogs to your AVD projects!
 
 ## Reference
 
 - ANTA documentation: [https://anta.arista.com](https://anta.arista.com)
-- AVD `eos_validate_state`: [https://avd.arista.com/5.1/roles/eos_validate_state/](https://avd.arista.com/5.1/roles/eos_validate_state/)
+- AVD `eos_validate_state`: [https://avd.arista.com/5.1/roles/eos_validate_state/](https://avd.arista.com/5.1/roles/eos_validate_state/)j

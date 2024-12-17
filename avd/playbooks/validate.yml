@@ -14,4 +14,4 @@
         #  - category: AvdTestInterfacesState
         #
         # The path is relative to the inventory
-        # custom_anta_catalogs_dir: ../3-anta-in-avd/custom_anta_catalogs
+        custom_anta_catalogs_dir: ../3-anta-in-avd/custom_anta_catalogs

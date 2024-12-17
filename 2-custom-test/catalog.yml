@@ -4,3 +4,5 @@ custom.vlan:
       vlans:
         - 110
         - 160
+      filters:
+        tags: [leaf]
