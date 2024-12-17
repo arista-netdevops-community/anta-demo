@@ -24,7 +24,7 @@ Repository is based on [containerlab](https://containerlab.dev/) for lab managem
 
 1. [Hello World](1-hello-world/README.md): Discover and run ANTA
 2. [Build your own test](2-custom-test/README.md): Write and execute a custom test
-3. [Run ANTA in AVD `eos_validate_state`](3-avd-eos-validate-state/README.md): Demonstrate how to leverage ANTA in AVD
+3. [Run ANTA in AVD `eos_validate_state`](3-anta-in-avd/README.md): Demonstrate how to leverage ANTA in AVD
 
 ## Containerlab Topology
 

@@ -292,4 +292,4 @@ You can now leverage this lab to create and add your own tests in your own custo
 ## Reference
 
 - ANTA documentation: [https://anta.arista.com](https://anta.arista.com)
-- AVD `eos_validate_state`: [https://avd.arista.com/5.1/roles/eos_validate_state/](https://avd.arista.com/5.1/roles/eos_validate_state/)j
+- AVD `eos_validate_state`: [https://avd.arista.com/5.1/roles/eos_validate_state/](https://avd.arista.com/5.1/roles/eos_validate_state/)
