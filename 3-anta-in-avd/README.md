@@ -91,7 +91,7 @@ In this section, the goal is to run the `eos_validate_state` in check mode, whic
 ```bash
 # from the root of the repo
 cd avd
-ansible-playbooks playbooks/validate.yml --check
+ansible-playbook playbooks/validate.yml --check
 ```
 
 This will create several files:
@@ -138,7 +138,7 @@ In this section, the goal is to run the `eos_validate_state` without check mode 
 ```bash
 # from the root of the repo
 cd avd
-ansible-playbooks playbooks/validate.yml
+ansible-playbook playbooks/validate.yml
 ```
 
 Take a look at the Markdown report, the number of tests executed should have changed.
@@ -158,7 +158,7 @@ Take a look at the Markdown report, the number of tests executed should have cha
     ```bash
     # from the root of the repo
     cd avd
-    ansible-playbooks playbooks/validate.yml
+    ansible-playbook playbooks/validate.yml
     ```
 
     Open the report again and notice that some tests are now failing for leaf1 (Loopback1 and Vxlan interfaces are down).
@@ -280,7 +280,7 @@ This section will take you through using the test built in lab 2 (`VerifyVlansSt
     ```bash
     # from the root of the repo
     cd avd
-    ansible-playbooks playbooks/validate.yml
+    ansible-playbook playbooks/validate.yml
     ```
 
 5. Check that in the `intended/test_catalogs` new tests have appeared at the end of the catalogs (notice how leaf1 has the SSL test)
